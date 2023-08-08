@@ -1,5 +1,14 @@
-{% if name %}
-<h1>Hello {{ name }}</h1>
-{% else %}
-<h1>Hello World</h1>
-{% endif %}
+<html>
+    <body>
+        <div>
+            {% for name in names %}
+                {% if name.name %}
+                <h1>Hello {{ name.name }}</h1>
+                {% else %}
+                <h1>Hello Random</h1>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+    </body>
+</html>
