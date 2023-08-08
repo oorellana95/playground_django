@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from studybud.models import Room
 
 # Create your views here.
 # request -> response
@@ -21,3 +22,12 @@ def say_hello_html(request, pk):
         context = {'names':names} 
     return render(request=request, template_name='hello.html', context=context)
 
+def home(request):
+    rooms = Room.objects.all()
+    context = {'names':rooms} 
+    return render(request=request, template_name='hello.html', context=context)
+
+def room(request, pk):
+    room = Room.objects.get(id=pk)
+    context = {'names':[room]} 
+    return render(request=request, template_name='hello.html', context=context)
