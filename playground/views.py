@@ -14,7 +14,10 @@ names = [
     {'id':  2, 'surname': 'Orellana'},
     {'id':  3, 'name': 'Montse'},
 ]
-def say_hello_html(request):
-    context = {'names':names}
+def say_hello_html(request, pk):
+    if pk:
+        context = {'names': [name for name in names if name.get('id') == pk]}
+    else:
+        context = {'names':names} 
     return render(request=request, template_name='hello.html', context=context)
 
