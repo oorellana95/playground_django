@@ -188,3 +188,10 @@ def update_user(request):
             return redirect('user-profile', pk=user.id)
     form = UserForm(instance=user)
     return render(request, 'update_user.html', {'form':form})
+
+def topics(request):
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    topics = Topic.objects.filter(name__icontains=q)
+    total_rooms = Room.objects.count
+    context = {'topics': topics, 'total_rooms': total_rooms}
+    return render(request, 'topics.html', context)
