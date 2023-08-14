@@ -59,7 +59,8 @@ def home(request):
         Q(description__icontains=q)
     )
     room_count = rooms.count()
-    context = {'topics': topics, 'rooms':rooms, 'room_count': room_count} 
+    room_messages = Message.objects.filter(Q(room__topic__name__icontains=q))
+    context = {'topics': topics, 'rooms':rooms, 'room_count': room_count, 'room_messages': room_messages} 
     return render(request=request, template_name='home.html', context=context)
 
 def room(request, pk):
