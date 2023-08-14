@@ -31,8 +31,8 @@
       Create Room
     </a>
   </div>
+  {% for room in rooms %}
   <div class="roomListRoom">
-    {% for room in rooms %}
     <div class="roomListRoom__header">
       <a href="{% url 'user-profile' room.host.id %}" class="roomListRoom__author">
         <div class="avatar avatar--small">
@@ -68,6 +68,6 @@
       </a>
       <p class="roomListRoom__topic">{{room.topic.name}}</p>
     </div>
-    {% endfor %}
   </div>
+  {% endfor %}
 </div>
