@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models import Q
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -8,7 +9,7 @@ from django.contrib import messages
 from .models import Room, Topic, Message
 from .forms import RoomForm
 
-def loginPage(request):
+def login_page(request):
     page = 'login'
     if request.user.is_authenticated:
         return redirect('home')
@@ -30,11 +31,11 @@ def loginPage(request):
     context = {'page':page} 
     return render(request, 'login_register.html', context)
 
-def logoutUser(request):
+def logout_user(request):
     logout(request)
     return redirect('home')
 
-def registerPage(request):
+def register_page(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -134,3 +135,11 @@ def delete_message(request, pk):
         return redirect('home')
     
     return render(request, 'delete.html', {'obj': message})
+
+def user_profile(request, pk):
+        user = User.objects.get(id=pk)
+        rooms = user.room_set.all()
+        room_messages = user.message_set.all()
+        topics = Topic.objects.all()
+        context = {'user':user, 'rooms': rooms, 'room_messages':room_messages, 'topics': topics}
+        return render(request, 'profile.html', context)

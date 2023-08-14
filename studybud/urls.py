@@ -3,11 +3,12 @@ from . import views
 
 # URLConf
 urlpatterns = [
-    path(route='login/', view=views.loginPage, name="login"),
-    path(route='logout/', view=views.logoutUser, name="logout"),
-    path(route='register/', view=views.registerPage, name="register"),
+    path(route='login/', view=views.login_page, name="login"),
+    path(route='logout/', view=views.logout_user, name="logout"),
+    path(route='register/', view=views.register_page, name="register"),
     path(route='home/', view=views.home, name="home"),
     path(route='rooms/<int:pk>/', view=views.room, name="room"),
+    path(route='profile/<int:pk>/', view=views.user_profile, name="user-profile"),    
     path(route='create-room/', view=views.create_room, name="create-room"),
     path(route='update-room/<int:pk>', view=views.update_room, name="update-room"),
     path(route='delete-room/<int:pk>', view=views.delete_room, name="delete-room"),
