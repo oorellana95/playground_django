@@ -14,7 +14,7 @@ class Room (models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True) # when the room is deleted we still mantain the rooms
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
-    # participants = 
+    participants = models.ManyToManyField(User, related_name='participants', blank=True)
     updated = models.DateTimeField(auto_now=True) #updates the timestamp for every change
     created = models.DateTimeField(auto_now_add=True) #only takes the timestamp when we create the instance
 
