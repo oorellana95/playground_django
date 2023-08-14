@@ -52,17 +52,23 @@ def register_page(request):
     return render(request, 'login_register.html', context)
 
 def home(request):
-    topics = Topic.objects.all()
     q = request.GET.get('q') if request.GET.get('q') != None else ''
-    rooms = Room.objects.filter(
-        Q(topic__name__icontains=q) | 
-        Q(name__icontains=q) |
-        Q(description__icontains=q)
-    )
+    q_topic = request.GET.get('q-topic') if request.GET.get('q-topic') != None else ''
+    if q:
+        rooms = Room.objects.filter(
+            Q(topic__name__icontains=q) | 
+            Q(name__icontains=q) |
+            Q(description__icontains=q)
+        )
+    elif q_topic:
+        rooms = Room.objects.filter(Q(topic__name__icontains=q_topic)
+        )
+    else:
+        rooms = Room.objects.all()
+    topics = Topic.objects.all()
     total_rooms = Room.objects.count
-    room_count = rooms.count()
     room_messages = Message.objects.filter(Q(room__topic__name__icontains=q))
-    context = {'topics': topics, 'total_rooms': total_rooms, 'rooms':rooms, 'room_count': room_count, 'room_messages': room_messages} 
+    context = {'topics': topics, 'total_rooms': total_rooms, 'rooms':rooms, 'room_messages': room_messages} 
     return render(request=request, template_name='home.html', context=context)
 
 def room(request, pk):
