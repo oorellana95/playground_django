@@ -100,7 +100,7 @@ def create_room(request):
 def update_room(request, pk):
     room = Room.objects.get(id=pk)
 
-    if request.user != room.user:
+    if request.user != room.host:
         return HttpResponse('You are not allowed to update this room!')
 
     if request.method == "POST":
@@ -117,7 +117,7 @@ def update_room(request, pk):
 def delete_room(request, pk):
     room = Room.objects.get(id=pk)
 
-    if request.user != room.user:
+    if request.user != room.host:
         return HttpResponse('You are not allowed to delete this room!')
     
     if request.method == "POST":
