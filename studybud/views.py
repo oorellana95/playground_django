@@ -195,3 +195,8 @@ def topics(request):
     total_rooms = Room.objects.count
     context = {'topics': topics, 'total_rooms': total_rooms}
     return render(request, 'topics.html', context)
+
+def activities(request):
+    room_messages = Message.objects.all()
+    context = {'topics': topics, 'room_messages': room_messages}
+    return render(request, 'activity.html', context)
