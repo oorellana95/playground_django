@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Room
+from .models import Room, UserProfile
 from django.contrib.auth.models import User
 
 class RoomForm(ModelForm):
@@ -13,3 +13,8 @@ class UserForm(ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email']
+
+class UserProfileForm(ModelForm):
+    class Meta:
+        model = UserProfile
+        exclude = ['user']

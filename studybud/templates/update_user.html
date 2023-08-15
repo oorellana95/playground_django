@@ -18,14 +18,20 @@
                     </div>
                 </div>
                 <div class="layout__body">
-                    <form class="form" method="POST" action="">
+                    <form class="form" method="POST" action="" enctype="multipart/form-data">
                       {% csrf_token %}
-                      {% for field in form %}
+                      {% for field in user_form %}
                         <div class="form__group">
-                            <label for="profile_pic">{{field.label}}</label>
+                            <label for="user">{{field.label}}</label>
                            {{field}}
                         </div>
                       {% endfor %}
+                      {% for field in user_profile_form %}
+                      <div class="form__group">
+                          <label for="user_profile">{{field.label}}</label>
+                         {{field}}
+                      </div>
+                    {% endfor %}
                         <div class="form__action">
                             <a class="btn btn--dark" href="{% url 'home' %}">Cancel</a>
                             <button class="btn btn--main" type="submit">Update</button>
